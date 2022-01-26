@@ -105,6 +105,6 @@ g2 <- ggplot(colorz$x) +
                        name = "P. average",
                        n.breaks = 5) + 
   ggtitle("Pearson correlation per district for 2021 and 2022") +
-  theme(legend.key.size = unit(0.3, "line"),
+  theme(legend.key.size = unit(0.55, "line"),
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
