@@ -1,0 +1,63 @@
+---
+title: "Project: Weather-API"
+author: "Valentino Mascherini"
+date: "26/01/2022"
+output:
+   bookdown::pdf_document2:
+     toc: false
+     fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# libraries
+
+library(RPostgres)
+library(tidyverse)
+library(lubridate)
+library(sf)
+
+# tables and figures
+
+cor21 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2021.csv") %>% select(-cov, -meta_id) 
+
+cor22 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2122.csv") %>% select(-cov, -meta_id)
+
+source("hobo_api_map.R", local = knitr::knit_global())
+```
+
+# The variable: air temperature
+
+Air temperature is a good benchmark variable, and for different reasons. First of all, it's quite easy to measure, meaning it doesn't need costly and complex, error prone sensors in order to be recorded. The sensors do not need a particularly time-spending set-up phase, and can be placed almost everywhere, as long as they are out of range of strongly-affecting heat sources. Furthermore, it is the closest measurement we can get in respect to the perceived temperature, making it a great forecast predictor of how the weather will actually affect you.
+
+# Unsuited station data
+
+We can see from the table below (Table \ref{tab:pear}) that the results look at least decent, as every HOBO shows a value higher than 0.5. It has to be noted how last year's data have just a moderately strong correlation with the modeled data, while, on the other hand, 2022's data are very strongly correlated. I would say that the differences are significant, judging by how the most strongly correlated hobo from 2021 cannot break past the 0.8 mark, when for 2022 the weakest is over 0.9. A station from 2021, namely that year's weakest, was placed outside the city of Freiburg and is no wonder why is characterized by such values. This year's weakest is also quite far from this year's best, by around 0.5, but in this case it's not due to a topographical outlier. To obtain the said values, Pearson's correlation test was used, instead of a covariance test. My choice is mostly dependent by the fact that a correlation is not affected by a change in scale, a procedure that is absolutely vital in a regionalization context. It's also a really nice tool to investigate a relationship before implementing any kind of model.
+
+```{r pear, echo = FALSE}
+
+knitr::kable(list(cor21, cor22), caption = "Pearson correlation for 2021 and 2022")
+
+```
+
+# Regional differences
+
+Are there regional differences? (max. 250 words)
+Given the results of the last task, are there regional differences in correlation between
+model and temperature measurements? The needed resolution for ‘regional’ are the different
+city districts of Freiburg. Create a map and describe it. Are there differences? Can you find
+some good reasons for these differences, like the number of stations or their coverage?
+What does that look like if you aggregate the data for each city district?
+
+In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the Pearson correlation of every HOBO present in a district, and plotted it in the Plot \ref{Regional differences}
+
+
+```{r regional, echo=FALSE}
+
+g1
+
+g2
+
+```
+
