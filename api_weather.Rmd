@@ -24,7 +24,7 @@ cor21 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/co
 
 cor22 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2122.csv") %>% select(-cov, -meta_id)
 
-source("hobo_api_map.R", local = knitr::knit_global())
+source("https://raw.githubusercontent.com/vm17399/weather_api/main/hobo_api_map.R")
 ```
 
 # The variable: air temperature
@@ -33,7 +33,7 @@ Air temperature is a good benchmark variable, and for different reasons. First o
 
 # Unsuited station data
 
-We can see from the table below (Table \ref{tab:pear}) that the results look at least decent, as every HOBO shows a value higher than 0.5. It has to be noted how last year's data have just a moderately strong correlation with the modeled data, while, on the other hand, 2022's data are very strongly correlated. I would say that the differences are significant, judging by how the most strongly correlated hobo from 2021 cannot break past the 0.8 mark, when for 2022 the weakest is over 0.9. A station from 2021, namely that year's weakest, was placed outside the city of Freiburg and is no wonder why is characterized by such values. This year's weakest is also quite far from this year's best, by around 0.5, but in this case it's not due to a topographical outlier. To obtain the said values, Pearson's correlation test was used, instead of a covariance test. My choice is mostly dependent by the fact that a correlation is not affected by a change in scale, a procedure that is absolutely vital in a regionalization context. It's also a really nice tool to investigate a relationship before implementing any kind of model.
+We can see from the table below (Table \ref{tab:pear}) that the results look at least decent, as every HOBO shows a value higher than 0.5. It has to be noted how last year's data have just a moderately strong correlation with the modeled data, while, on the other hand, 2022's data are very strongly correlated. I would say that the differences are significant, judging by how the most strongly correlated hobo from 2021 cannot break past the 0.8 mark, when for 2022 the weakest is over 0.9. A station from 2021, namely that year's weakest, was placed outside the city of Freiburg and is no wonder why is characterized by such values. This year's weakest is also quite far from this year's best, by around 0.5, but in this case it's not due to a topographical outlier. The plot \ref{fig:points} actually show the correlation of the single HOBOs to the model quite neatly, distinguishing for both terms and thus giving us the general situation at a glance. Here we can we To obtain the said values, Pearson's correlation test was used, instead of a covariance test. My choice is mostly dependent by the fact that a correlation is not affected by a change in scale, a procedure that is absolutely vital in a regionalization context. It's also a really nice tool to investigate a relationship before implementing any kind of model.
 
 ```{r pear, echo = FALSE}
 
@@ -50,14 +50,22 @@ city districts of Freiburg. Create a map and describe it. Are there differences?
 some good reasons for these differences, like the number of stations or their coverage?
 What does that look like if you aggregate the data for each city district?
 
-In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the Pearson correlation of every HOBO present in a district, and plotted it in the Plot \ref{Regional differences}
+In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the Pearson correlation of every HOBO present in a district, and plotted it on the Freiburg map (Plot \ref{fig:regional}). The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. We can see, looking at the isolated circle areas, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the plot \ref{fig:regional22} shows only the current HOBOs.
 
-
-```{r regional, echo=FALSE}
+```{r points, echo=FALSE, fig.cap="Differences in correlation between HOBOs"}
 
 g1
+
+```
+
+```{r regional, echo=FALSE, fig.cap="Differences in correlation between city districts 2021 and 2022"}
 
 g2
 
 ```
 
+```{r regional22, echo=FALSE, fig.cap="Differences in correlation between city districts 202"}
+
+g3
+
+```

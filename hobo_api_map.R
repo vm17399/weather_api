@@ -41,6 +41,8 @@ hmd$coord %>% st_set_crs("WGS84")
 hmdt <- merge(hmd, hwt, by = "id")%>% 
   mutate(term = ifelse(term_id == 11, "WT21", "WT22")) 
 
+hmd22 <- hmdt %>% filter(term == "WT22")
+
 # filter for Wt22
 
 #%>% 
@@ -50,7 +52,7 @@ g1 <- ggplot() +
   geom_sf(data = distr1, colour = "white", fill = "grey70") +
   geom_sf(data = hmdt$coord, aes(fill = hmdt$pear, shape = hmdt$term), size = 4, alpha= 0.8) + 
   theme_minimal(14) +
-  scale_shape_manual(values = c(21, 24), name = "Term") +
+  scale_shape_manual(values = c(24, 21), name = "Term") +
   scale_fill_viridis_b(option = "plasma",
                        name = "Pearson correlation",
                        n.breaks = 5) +
@@ -91,7 +93,12 @@ pearper <- hobo_but %>% group_by(name) %>%
   summarise(p_avg = mean(pear),
             name) %>% distinct_all()
 
-# ---- pearson average mapped
+pearper22 <- hobo_but %>% filter(id > 36) %>% 
+             group_by(name) %>% 
+             summarise(p_avg = mean(pear),
+             name) %>% distinct_all()
+
+# ---- pearson average mapped tot
 
 colorz <- merge(pearper, districts, by = "name")
 
@@ -103,6 +110,23 @@ g2 <- ggplot(colorz$x) +
   geom_sf(data = hmdt$coord, aes(fill = hmdt$pear, shape = hmdt$term), size = 3, alpha= 0.8) +
   scale_fill_viridis_b(option = "plasma",
                        name = "P. average",
+                       n.breaks = 5) + 
+  ggtitle("Pearson correlation per district for 2021 and 2022") +
+  theme(legend.key.size = unit(0.55, "line"),
+        legend.position = c(0.1,0.18),
+        legend.background = element_rect(fill = "white", colour = "grey")) 
+
+# ---- pearson 22
+
+colorz1 <- merge(pearper22, districts, by = "name")
+
+colorz1 <- merge(colorz, distr1, by = "id") 
+
+g3 <- ggplot(colorz$x) +
+  geom_sf(data = distr1, colour = "white", fill = "grey70") +
+  geom_sf(aes(fill = colorz1$p_avg)) +
+  geom_sf(data = hmd22$coord, aes(fill = hmd22$pear), size = 3, alpha= 0.8) +
+  scale_fill_viridis_c(name = "P. average",
                        n.breaks = 5) + 
   ggtitle("Pearson correlation per district for 2021 and 2022") +
   theme(legend.key.size = unit(0.55, "line"),
