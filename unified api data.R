@@ -72,4 +72,4 @@ while (as.integer(num1) < 43) {
 dtt <- dtt %>% filter(dttm > "2021-12-12 23:00:00", dttm < "2022-01-10") %>% 
   mutate(th = th -273.15)
 
-write.csv(dtt, file = '~/Freiburg/UniFreiburg/Data Management/Hobo project/1_data_processed/api_data_weather.csv', row.names = FALSE, quote = FALSE)
+#write.csv(dtt, file = '~/Freiburg/UniFreiburg/Data Management/weather_api/api_data_weather.csv', row.names = FALSE, quote = FALSE)

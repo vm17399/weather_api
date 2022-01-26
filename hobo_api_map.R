@@ -16,9 +16,9 @@ con <- dbConnect(RPostgres::Postgres(),
 
 # read .csv and maps, metadata
 
-h21 <- read.csv("~/Freiburg/UniFreiburg/Data Management/Hobo project/1_data_processed/hobos_2021.csv")
+h21 <- read.csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2021.csv")
 
-h22<- read_csv("~/Freiburg/UniFreiburg/Data Management/Hobo project/1_data_processed/hobos_2122.csv")
+h22<- read.csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2122.csv")
 
 hwt <- union(h21, h22) %>% rename(id = meta_id)
 
@@ -34,17 +34,19 @@ distr1 <- sf::st_as_sf(distr) %>% st_set_crs("WGS84")
 
 distr1 <- distr1 %>% mutate(id = districts$id)
 
-plot(distr1)
-
 hmd <- hmd %>%  mutate(coord = st_as_sf(sf::st_as_sfc(hmd$location))) 
 
 hmd$coord %>% st_set_crs("WGS84")
 
-hmdt <- merge(hmd, hwt, by = "id") %>% 
-  mutate(term = ifelse(term_id == 11, "WT21", "WT22")) %>% 
-  filter(term == "WT22")
+hmdt <- merge(hmd, hwt, by = "id")%>% 
+  mutate(term = ifelse(term_id == 11, "WT21", "WT22")) 
 
-ggplot() +
+# filter for Wt22
+
+#%>% 
+ # filter(term == "WT22")
+
+g1 <- ggplot() +
   geom_sf(data = distr1, colour = "white", fill = "grey70") +
   geom_sf(data = hmdt$coord, aes(fill = hmdt$pear, shape = hmdt$term), size = 4, alpha= 0.8) + 
   theme_minimal(14) +
@@ -53,7 +55,7 @@ ggplot() +
                        name = "Pearson correlation",
                        n.breaks = 5) +
   ggtitle("HOBOs in Freiburg") +
-  theme(legend.key.size = unit(1.5, "line"),
+  theme(legend.key.size = unit(0.3, "line"),
         legend.position = "bottom",
         legend.background = element_rect(fill = "white", colour = "grey"))
 
@@ -95,15 +97,14 @@ colorz <- merge(pearper, districts, by = "name")
 
 colorz <- merge(colorz, distr1, by = "id") 
 
-ggplot(colorz$x) +
-  #geom_sf(data = distr1, colour = "white", fill = "grey70") +
+g2 <- ggplot(colorz$x) +
+  geom_sf(data = distr1, colour = "white", fill = "grey70") +
   geom_sf(aes(fill = colorz$p_avg)) +
   geom_sf(data = hmdt$coord, aes(fill = hmdt$pear), size = 3, alpha= 0.8) +
   scale_fill_viridis_b(option = "plasma",
                        name = "P. average",
                        n.breaks = 5) + 
-  ggtitle("Pearson correlation per district for WT22") +
-  theme(legend.key.size = unit(1.5, "line"),
+  ggtitle("Pearson correlation per district for 2021 and 2022") +
+  theme(legend.key.size = unit(0.3, "line"),
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
-

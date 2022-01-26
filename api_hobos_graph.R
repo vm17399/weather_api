@@ -27,12 +27,14 @@ hobos_md <- dbReadTable(con, "metadata") %>%
 
 hobos_id <- hobos_md %>% select(id, device_id)
 
+dtl <- as.data.frame(read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/api_data_weather.csv"))
+
 # joining df
 
 h_data <- merge(hobos_data, hobos_id, by.x = c("meta_id"), by.y = c("id")) %>% 
   select(-variable_id) %>% select(-meta_id, -quality_flag_id)
 
-dth <- dtt %>%  mutate(device_id = "api")
+dth <- dtl %>%  mutate(device_id = "api")
 
 hobo_api <- union(h_data, dth) 
 

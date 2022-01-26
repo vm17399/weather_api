@@ -24,7 +24,7 @@ hobos_tot <- dbReadTable(con, "data") %>% # quality checked data tot
 hobos_id_tot <- dbReadTable(con, "metadata") %>% 
   select(id, device_id)
 
-dtt <- read.csv("~/Freiburg/UniFreiburg/Data Management/Hobo project/1_data_processed/api_data_weather.csv")
+dtt <- as.data.frame(read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/api_data_weather.csv"))
 
 # merging with id metadata frame
 
@@ -82,7 +82,10 @@ while (i < nrow(cyc) + 1) {
     
     pears <- cor.test(x = dev$th, y = dth$th, model ="pearson")
     
-    rel <- union(rel, data.frame(pear = pears$estimate, device_id =  h_names[[count, 1]], cov = cova, meta_id =  h_names[[count, 2]])) 
+    rel <- union(rel, data.frame(pear = pears$estimate, 
+                                 device_id =  h_names[[count, 1]], 
+                                 cov = cova, 
+                                 meta_id =  h_names[[count, 2]])) 
     
     count <- count + 1
     
@@ -96,6 +99,6 @@ while (i < nrow(cyc) + 1) {
   
 }
 
-write.csv(corr_hobos_2021, file = "~/Freiburg/UniFreiburg/Data Management/Hobo project/1_data_processed/hobos_2021.csv", row.names = FALSE, quote = FALSE)
+write.csv(corr_hobos_2021, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/cort_hobos_2021.csv", row.names = FALSE, quote = FALSE)
 
-write.csv(corr_hobos_2122, file = "~/Freiburg/UniFreiburg/Data Management/Hobo project/1_data_processed/hobos_2122.csv", row.names = FALSE, quote = FALSE)
+write.csv(corr_hobos_2122, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/cort_hobos_2122.csv", row.names = FALSE, quote = FALSE)
