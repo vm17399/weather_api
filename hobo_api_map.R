@@ -100,7 +100,7 @@ colorz <- merge(colorz, distr1, by = "id")
 g2 <- ggplot(colorz$x) +
   geom_sf(data = distr1, colour = "white", fill = "grey70") +
   geom_sf(aes(fill = colorz$p_avg)) +
-  geom_sf(data = hmdt$coord, aes(fill = hmdt$pear), size = 3, alpha= 0.8) +
+  geom_sf(data = hmdt$coord, aes(fill = hmdt$pear, shape = hmdt$term), size = 3, alpha= 0.8) +
   scale_fill_viridis_b(option = "plasma",
                        name = "P. average",
                        n.breaks = 5) + 
