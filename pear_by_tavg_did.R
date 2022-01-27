@@ -4,9 +4,12 @@ dtt <- as.data.frame(read_csv("https://raw.githubusercontent.com/vm17399/weather
 
 pointer <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/pointer22.csv")
 
-#pointer22 <- point %>% filter(term_id == 13) %>% select(id, did) %>% mutate(did = as.integer(did))
+#pointer22 <- point %>% filter(term_id == 13) %>% select(id, did) %>% mutate(did = as.integer(did)) %>% 
+  #filter(is.na(did) == FALSE)
 
 hobos_2022 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/hobos_2022.csv")
+
+#didnt <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/didnt.csv")
 
 hobos_did <- full_join(hobos_2022, pointer, by = "id")
 
@@ -14,9 +17,9 @@ hobos_did_avg <- hobos_did %>% group_by(did, dttm) %>%
   summarise(tavg = mean(th), did, dttm) %>% 
   distinct_all() %>% filter(is.na(tavg) == FALSE)
 
-write.csv(pointer22, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/pointer22.csv", row.names = FALSE, quote = FALSE)
+didnt <- dist_coord %>% select(name, did)
 
-
+write.csv(didnt, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/didnt.csv", row.names = FALSE, quote = FALSE)
 
 #hobos_did_pear <- hobos_did_avg %>% group_by(did) %>% 
  # summarise(pears = cor.test(x = dev$th, y = dth$th, model ="pearson"))
@@ -31,7 +34,7 @@ dtg <- dtt
 
 j <- 1
 
-while (j < nrow(didder)) {
+while (j < nrow(didder) + 1) {
  
   hda <- hobos_did_avg %>% filter(did == didder[[j,1]]) %>% slice(c(1:648))
   
@@ -41,3 +44,9 @@ while (j < nrow(didder)) {
                                  did =  didder[[j, 1]]))
   j <- j + 1
 }
+
+peareal <- merge(real, didnt, by = "did")
+
+#write.csv(peareal, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/pearson_.csv", row.names = FALSE, quote = FALSE)
+
+

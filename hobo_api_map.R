@@ -98,6 +98,8 @@ pearper22 <- hobo_but %>% filter(id > 36) %>%
              summarise(p_avg = mean(pear),
              name) %>% distinct_all()
 
+
+
 # ---- pearson average mapped tot
 
 colorz <- merge(pearper, districts, by = "name")
@@ -116,7 +118,7 @@ g2 <- ggplot(colorz$x) +
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
 
-# ---- pearson 22
+# ---- pearson 22 ----
 
 colorz1 <- merge(pearper22, districts, by = "name") %>% slice(1:11)
 
@@ -129,6 +131,46 @@ g3 <- ggplot(colorz1$x) +
   scale_fill_viridis_c(name = "P. average",
                        n.breaks = 4) + 
   ggtitle("Pearson correlation per district 2022") +
+  theme(legend.key.size = unit(0.55, "line"),
+        legend.position = c(0.1,0.18),
+        legend.background = element_rect(fill = "white", colour = "grey")) 
+
+# ---- peareal 22 ----
+
+peareal <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/pearson_per_district.csv")
+
+colorz2 <- merge(peareal, districts, by = "name") %>% slice(1:11)
+
+colorz2 <- left_join(colorz2, distr1, by = "id") 
+
+g4 <- ggplot(colorz2$x) +
+  geom_sf(data = distr1, colour = "white", fill = "grey70") +
+  geom_sf(aes(fill = colorz2$pear)) +
+  geom_sf(data = hmd22$coord, aes(fill = hmd22$pear), size = 3, alpha= 0.8) +
+  scale_fill_viridis_c(name = "P. average",
+                       n.breaks = 3) + 
+  ggtitle("Pearson correlation per district 2022") +
+  theme(legend.key.size = unit(0.55, "line"),
+        legend.position = c(0.1,0.18),
+        legend.background = element_rect(fill = "white", colour = "grey")) 
+
+# ---- peartot ----
+
+#peareal21 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/pearson_per_distr21.csv")
+
+peartot <- union(peareal, peareal2122)
+
+colorz3 <- merge(peartot, districts, by = "name")
+
+colorz3 <- left_join(colorz3, distr1, by = "id") 
+
+g5 <- ggplot(colorz3$x) +
+  geom_sf(data = distr1, colour = "white", fill = "grey70") +
+  geom_sf(aes(fill = colorz3$pear)) +
+  geom_sf(data = hmdt$coord, aes(fill = hmdt$pear), size = 3, alpha= 0.8) +
+  scale_fill_viridis_c(name = "P. average",
+                       n.breaks = 5) + 
+  ggtitle("Pearson correlation per district for 2021 and 2022") +
   theme(legend.key.size = unit(0.55, "line"),
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
