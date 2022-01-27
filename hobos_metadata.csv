@@ -1,0 +1,32 @@
+id,device_id,sensor_id,term_id,location,description
+37,10760763,4,13,0101000020E6100000D3BCE3141D491F4037894160E5004840,Suspended in the air at precisely 70cm from the balcony floor in 2nd floor and slightly shielded by the wall atleast 1 inch.
+38,10347320,4,13,0101000020E6100000006F8104C54F1F4061545227A0014840,the hobo was placed at the outside area of a window in the second floor. Due to the placement directly at the transparent area of the window we might see influences of room light or heat fluxes from the building. There was no prodection from direct sun radiation. The hobo also is placed nearby a street which is used by cars quite frequently plus more light effects by the lanterns during the night.
+39,10088310,4,13,0101000020E61000007CF2B0506B5A1F40832F4CA60AFE4740,Balcony, 2. floor, next to the wall under the roof, maybe influenced by window light during night
+40,10234637,4,13,0101000020E6100000B30C71AC8B9B1F40F697DD9387FD4740,Under roof at 4th floor. Hung up in a cut open TetraPak. Might be influenced by window light during night or heat loss of building 
+41,10760769,4,13,0101000020E610000096B20C71AC4B1F4062105839B4004840,Shady place at the balcony, 1,5 m distance wall - HOBO, influended by window light
+42,10347368,4,13,0101000020E610000061545227A0491F4037894160E5004840,Balcony at the second floor,facing northern side and the place affected a little bit by rain
+43,10347328,4,13,0101000020E61000007FFB3A70CE481F40FE43FAEDEB004840,Shady place at balcony at the sixth floor, facing W, protected by nearby wall (distance 20 cm), influenced by nearby window (distance 70 cm)
+44,10801141,4,13,0101000020E6100000C0EC9E3C2C541F40F38E537424FF4740,Loggia on the second floor, protected by side cladding
+45,10347362,4,13,0101000020E61000007DD0B359F5791F403B014D840DFF4740,Placed in garden a few meters beside the house. Quite shadowy place, no direct sensor shielding but corrugated sheet roof above. Lantern in front of neighbours house migth influence the light intensity measurement
+46,10350016,4,13,0101000020E61000007AA52C431C6B1F407E8CB96B09014840,Balcony at third floor, attached to a clothesline
+47,10347366,4,13,0101000020E61000001361C3D32B651F409B559FABAD004840,sensor 40 cm below window sill, covered by joghurt cup, sensor on the wall, construction scafolding infront of the wall
+48,10760820,4,13,0101000020E6100000DC68006F81441F401DC9E53FA4FF4740,well shaded on a balcony. >1m distance to the nearest window. High light influences due to the living room window
+49,10347313,4,13,0101000020E6100000EE7C3F355E7A1F40499D8026C2FE4740,Balcony at first floor, attached to railing, influenced a little by rain/snow and heat loss of building
+50,10350049,4,13,0101000020E610000085EB51B81E451F4054742497FF004840,Balcony at sixth floor, under a table
+51,10347384,4,13,0101000020E61000000D71AC8BDB681F4067D5E76A2BFE4740,Outside of the kitchen window. Hanging below the roof. aprox. 30cm from ceiling and 30cm from window
+52,10347321,4,13,0101000020E610000061545227A0491F40D42B6519E2004840,Balcony at the second floor,attached to a net found outside the balcony.
+53,10760822,4,13,0101000020E61000008E06F01648501F40C0EC9E3C2CFC4740,Hanging from the windowsill at the first floor; near the house wall (maybe influenced by heat loss); relatively well protected from the sun by surrounding buildings except in the morning; influenced by artificial light during the evening (protection by blind) and maybe in the night for short times because of motion detectors
+54,10350002,4,13,0101000020E61000002575029A081B1F4029CB10C7BA004840,Nature protection area,  lined up trees next to a creak surrounded by meadows, attached to the tree stem
+55,10347327,4,13,0101000020E610000098DD9387851A1F4029CB10C7BA004840,Nature protection area,  lined up trees next to a creak surrounded by meadows, attached to the tree stem
+56,10350005,4,13,0101000020E6100000AA8251499D401F408FC2F5285CFF4740,Balcony at the third floor, attached to side wall, construction works during measurement period
+57,10347355,4,13,0101000020E61000000A68226C787A1F40499D8026C2FE4740,Balcony at first floor, attached to railing, influenced a little by rain/snow and heat loss of building
+58,10801134,4,13,0101000020E6100000401361C3D36B1F40713D0AD7A3004840,Window outside third floor, air circulation possible, potentially impacted by wind and heat loss of building
+59,10760709,4,13,0101000020E61000008638D6C56D741F40B459F5B9DA024840,Balcony at the second floor, attached to mount for outdoor light
+60,10801139,4,13,0101000020E610000033C4B12E6E631F4010E9B7AF03FF4740,open backyard shed
+61,10760810,4,13,0101000020E61000006B9A779CA2631F401CEBE2361A004840,Balkony first floor. Hanging from beam at 1.5m above ground. Light from window as well as street lanterns, protected from sunlight by surrounding buildings, protected from wind by nearby walls on two sides
+62,10350068,4,13,0101000020E6100000BE9F1A2FDDA41F406B2BF697DDFB4740,balcony at first floor, attached to a tibetan flag
+63,10347379,4,13,0101000020E6100000D712F241CF661F4061545227A0014840,balcony, 2. floor, 1m above ground, influence: wind,light. attached to tomato stick/grid
+64,10347394,4,13,0101000020E6100000006F8104C54F1F4061545227A0014840,the hobo was placed at the outside window sill in front of the window in the second floor. Influence by room light and heat fluxes from the building. Influence by insolation and street lamps.
+65,10760811,4,13,0101000020E610000017D9CEF753631F4010E9B7AF03FF4740,above a sheltered sandbox in the backyard
+66,10760710,4,13,0101000020E61000007CF2B0506B5A1F40832F4CA60AFE4740,Balcony, 2. floor, next to the wall under the roof, sometimes influenced by window light or direct light outside on the balcony during night
+67,10347356,4,13,0101000020E6100000B37BF2B0506B1F407E8CB96B09014840,Balcony at third floor, attached to the railing
