@@ -127,7 +127,7 @@ g3 <- ggplot(colorz1$x) +
   geom_sf(aes(fill = colorz1$p_avg)) +
   geom_sf(data = hmd22$coord, aes(fill = hmd22$pear), size = 3, alpha= 0.8) +
   scale_fill_viridis_c(name = "P. average",
-                       n.breaks = 5) + 
+                       n.breaks = 4) + 
   ggtitle("Pearson correlation per district 2022") +
   theme(legend.key.size = unit(0.55, "line"),
         legend.position = c(0.1,0.18),

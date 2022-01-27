@@ -50,7 +50,7 @@ city districts of Freiburg. Create a map and describe it. Are there differences?
 some good reasons for these differences, like the number of stations or their coverage?
 What does that look like if you aggregate the data for each city district?
 
-In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the Pearson correlation of every HOBO present in a district, and plotted it on the Freiburg map (Plot \ref{fig:regional}). The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. We can see, looking at the isolated circle areas, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the plot \ref{fig:regional22} shows only the current HOBOs.
+In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the Pearson correlation of every HOBO present in a district, and plotted it on the Freiburg map (Plot \ref{fig:regional}). The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. We can see, looking at the isolated circle areas, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the plot \ref{fig:regional22} shows only the current HOBOs. We see that the model correlates best with the devices in the Wiehre district, that has two sensors, like three other areas. That excludes that the number of sensors is what gives the best
 
 ```{r points, echo=FALSE, fig.cap="Differences in correlation between HOBOs"}
 
@@ -64,7 +64,7 @@ g2
 
 ```
 
-```{r regional22, echo=FALSE, fig.cap="Differences in correlation between city districts 202"}
+```{r regional22, echo=FALSE, fig.cap="Differences in correlation between city districts 2022"}
 
 g3
 
