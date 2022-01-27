@@ -118,17 +118,17 @@ g2 <- ggplot(colorz$x) +
 
 # ---- pearson 22
 
-colorz1 <- merge(pearper22, districts, by = "name")
+colorz1 <- merge(pearper22, districts, by = "name") %>% slice(1:11)
 
-colorz1 <- merge(colorz, distr1, by = "id") 
+colorz1 <- left_join(colorz1, distr1, by = "id") 
 
-g3 <- ggplot(colorz$x) +
+g3 <- ggplot(colorz1$x) +
   geom_sf(data = distr1, colour = "white", fill = "grey70") +
   geom_sf(aes(fill = colorz1$p_avg)) +
   geom_sf(data = hmd22$coord, aes(fill = hmd22$pear), size = 3, alpha= 0.8) +
   scale_fill_viridis_c(name = "P. average",
                        n.breaks = 5) + 
-  ggtitle("Pearson correlation per district for 2021 and 2022") +
+  ggtitle("Pearson correlation per district 2022") +
   theme(legend.key.size = unit(0.55, "line"),
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
