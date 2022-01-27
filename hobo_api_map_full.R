@@ -146,7 +146,7 @@ hobos_2021 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/ma
 
 pointer21 <- point %>% filter(term_id == 11) %>% select(id, did) %>% 
   mutate(did = as.integer(did)) %>% 
-  filter(is.na(did) == FALSE)
+  filter(is.na(did) == FALSE) %>% distinct(did)
 
 didnt <- dist_coord %>% select(name, did)
 
@@ -198,10 +198,6 @@ hobos_2022 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/ma
 #didnt <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/didnt.csv")
 
 hobos_did <- full_join(hobos_2022, pointer, by = "id")
-
-hobos_did_avg <- hobos_did %>% group_by(did, dttm) %>%
-  summarise(tavg = mean(th), did, dttm) %>% 
-  distinct_all() %>% filter(is.na(tavg) == FALSE)
 
 hobos_did_avg22 <- hobos_did %>% group_by(did, dttm) %>%
   summarise(tavg = mean(th), did, dttm) %>% 

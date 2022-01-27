@@ -1,3 +1,13 @@
+# importing
+
+hobos_2021 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/hobos_2021.csv")
+
+hobos_2022 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/hobos_2022.csv")
+
+pointer <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/pointer22.csv")
+
+dtt <- as.data.frame(read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/api_data_weather.csv"))
+
 # unified df
 
 hobos_full <- union(hobos_2021, hobos_2022)
