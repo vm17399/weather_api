@@ -20,8 +20,6 @@ hobos_data <- dbReadTable(con, "data") %>% # quality checked data
   filter(tstamp >= "2021-12-13 00:00:00") %>%
   rename(dttm = tstamp, th = value)
 
-save(hobos_data, file = "~/Freiburg/UniFreiburg/Data Management/SQL/hobo_21_22_data.rda")
-
 hobos_md <- dbReadTable(con, "metadata") %>% 
   filter(id >= 37, id <= 67)
 

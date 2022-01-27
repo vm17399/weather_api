@@ -146,7 +146,7 @@ hobos_2021 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/ma
 
 pointer21 <- point %>% filter(term_id == 11) %>% select(id, did) %>% 
   mutate(did = as.integer(did)) %>% 
-  filter(is.na(did) == FALSE) %>% distinct(did)
+  filter(is.na(did) == FALSE) 
 
 didnt <- dist_coord %>% select(name, did)
 
@@ -191,7 +191,7 @@ peareal21 <- merge(real, didnt, by = "did")
 pointer <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/pointer22.csv")
 
 pointer22 <- point %>% filter(term_id == 13) %>% select(id, did) %>% mutate(did = as.integer(did)) %>% 
-  filter(is.na(did) == FALSE) %>% distinct(did)
+  filter(is.na(did) == FALSE) 
 
 hobos_2022 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/hobos_2022.csv")
 

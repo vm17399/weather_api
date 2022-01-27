@@ -20,9 +20,9 @@ model_data <- hobos_didt %>% group_by(did, dttm) %>%
 
 pointer_n <- merge(pointer, dist_coord, by ="did") %>% select(did, name, id.x)
 
-pn22 <- pointer_n %>% filter(id.x >= 36) %>% distinct(did, name)
+pn22 <- pointer_n %>% filter(id.x > 36) %>% distinct(did, name)
 
-pn21 <- pointer_n %>% filter(id.x < 36)
+pn21 <- pointer_n %>% filter(id.x < 37)
 
 c <- 1
 

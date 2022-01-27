@@ -6,8 +6,6 @@ library(RPostgres)
 library(tidyverse)
 library(lubridate)
 
-
-
 # connect to db
 
 con <- dbConnect(RPostgres::Postgres(), 
