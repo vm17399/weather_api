@@ -24,7 +24,7 @@ cor21 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/co
 
 cor22 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2122.csv") %>% select(-cov, -meta_id)
 
-source("https://raw.githubusercontent.com/vm17399/weather_api/main/hobo_api_map.R")
+source("https://raw.githubusercontent.com/vm17399/weather_api/main/hobo_api_map_full.R")
 ```
 
 # The variable: air temperature
@@ -50,7 +50,19 @@ city districts of Freiburg. Create a map and describe it. Are there differences?
 some good reasons for these differences, like the number of stations or their coverage?
 What does that look like if you aggregate the data for each city district?
 
-In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the Pearson correlation of every HOBO present in a district, and plotted it on the Freiburg map (Plot \ref{fig:regional}). The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. We can see, looking at the isolated circle areas, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the plot \ref{fig:regional22} shows only the current HOBOs. We see that the model correlates best with the devices in the Wiehre district, that has two sensors, like three other areas. That excludes that the number of sensors is what gives the best
+In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the temperature of every HOBO present in a district and tested it through the Pearson correlation against the model data, and plotted it on the Freiburg map (Plot \ref{fig:regional}). I first grouped by year and calculated the average district temperature, then I got the average of the correlation per district.
+The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. Only the districts with HOBOs actually placed are coloured, thus the majority of the districts furthest to the city center is unfilled. The differences are quite harsh, from 0.9 to less than 0.7. We can see, looking at the areas containing isolated circles, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio, especially than triangles alone. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the plot \ref{fig:regional22} shows only the current year's HOBOs. We see that the model correlates best with the devices in the Wiehre district, that has two sensors, a number alike three other areas. To be fair, the districts finding themselves worse off correaltion-wise are those with only one HOBO, so we could say that the more the sensors, the better the correlation. To further support this thesis, I also tried finding the Pearson correlation for each HOBO and then deriving its mean per district, and the distribution was a little different in the districts with more HOBOs, in fact they had a lower correlation than plot \ref{fig:regional22}. This means that having more sensors captions an overall temperature average closer to the actual model.
+
+# Database VS Scripts
+
+Database views vs. R scripts (max. 100 words)
+Similar analyses (like in the last task) will be needed on a frequent basis. Either for quality
+control or as an end-product for customers. Should you implement this as SQL-views /
+SQL-functions or rather as a script (i.e. R or Python) that would need some automation?
+Answer this question objectively. You might personally prefer one solution over the other, but
+i.e. technical differences are usually the better argument.
+
+Both SQL querys and scripts can be exploited in order to achieve the same goal, being initially the display of an overview of the data, then various plots and maps.
 
 ```{r points, echo=FALSE, fig.cap="Differences in correlation between HOBOs"}
 
@@ -60,12 +72,12 @@ g1
 
 ```{r regional, echo=FALSE, fig.cap="Differences in correlation between city districts 2021 and 2022"}
 
-g2
+g5
 
 ```
 
 ```{r regional22, echo=FALSE, fig.cap="Differences in correlation between city districts 2022"}
 
-g3
+g4
 
 ```

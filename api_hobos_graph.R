@@ -46,7 +46,7 @@ names(hobo_api) <- c("dttm", "th", "device_id", "temp")
 
 cols <- c("OpenWeather" = "red", "HOBOs" = "grey")
 
-ggplot(hobo_api, aes(dttm)) +
+g0 <- ggplot(hobo_api, aes(dttm)) +
   geom_line(aes(y = th), color = "grey") +
   geom_line(aes(y = temp, color = "OpenWeather"), size = 0.7) +
   labs(x = 'Date', y = 'Temperature', color = 'Legend') + 
