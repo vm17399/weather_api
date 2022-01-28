@@ -25,6 +25,17 @@ cor21 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/co
 cor22 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/cor_hobos_2122.csv") %>% select(-cov, -meta_id)
 
 source("https://raw.githubusercontent.com/vm17399/weather_api/main/hobo_api_map_full.R")
+
+source("https://raw.githubusercontent.com/vm17399/weather_api/main/api_hobos_graph.R")
+
+# SQL connection
+
+con <- dbConnect(RPostgres::Postgres(), 
+                  "hydenv", host = "localhost",
+                  port = 5432, 
+                  user = "hydenv", 
+                  password = "hydenv")
+
 ```
 
 # The variable: air temperature
@@ -50,19 +61,81 @@ city districts of Freiburg. Create a map and describe it. Are there differences?
 some good reasons for these differences, like the number of stations or their coverage?
 What does that look like if you aggregate the data for each city district?
 
-In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the temperature of every HOBO present in a district and tested it through the Pearson correlation against the model data, and plotted it on the Freiburg map (Plot \ref{fig:regional}). I first grouped by year and calculated the average district temperature, then I got the average of the correlation per district.
-The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. Only the districts with HOBOs actually placed are coloured, thus the majority of the districts furthest to the city center is unfilled. The differences are quite harsh, from 0.9 to less than 0.7. We can see, looking at the areas containing isolated circles, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio, especially than triangles alone. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the plot \ref{fig:regional22} shows only the current year's HOBOs. We see that the model correlates best with the devices in the Wiehre district, that has two sensors, a number alike three other areas. To be fair, the districts finding themselves worse off correaltion-wise are those with only one HOBO, so we could say that the more the sensors, the better the correlation. To further support this thesis, I also tried finding the Pearson correlation for each HOBO and then deriving its mean per district, and the distribution was a little different in the districts with more HOBOs, in fact they had a lower correlation than plot \ref{fig:regional22}. This means that having more sensors captions an overall temperature average closer to the actual model.
+In order to visualize the regional differences between the model and the actual temperature measurements, I got the mean of the temperature of every HOBO present in a district and tested it through the Pearson correlation against the model data, and plotted it on the Freiburg map (Map \ref{fig:regional}). I first grouped by year and calculated the average district temperature, then I got the average of the correlation per district.
+The resolution of the regions are the different city districts, that are filled with different colour corresponding to a certain correlation level. Only the districts with HOBOs actually placed are coloured, thus the majority of the districts furthest to the city center is unfilled. The differences are quite harsh, from 0.9 to less than 0.7. We can see, looking at the areas containing isolated circles, how the 2022 HOBOs have the best correlation, and how the areas with an high ratio of circles over triangles usually have a better ratio, especially than triangles alone. We can conclude that the most correlated districts are the ones who have the most number of new data, making "year" a confounding variable. To have a better understanding of how the districts differ, the map \ref{fig:regional22} shows only the current year's HOBOs. We see that the model correlates best with the devices in the Wiehre district, that has two sensors, a number alike three other areas. To be fair, the districts finding themselves worse off correaltion-wise are those with only one HOBO, so we could say that the more the sensors, the better the correlation. To further support this thesis, I also tried finding the Pearson correlation for each HOBO and then deriving its mean per district, and the distribution was a little different in the districts with more HOBOs, in fact they had a lower correlation than map \ref{fig:regional22}. This means that having more sensors captions an overall temperature average closer to the actual model.
 
 # Database VS Scripts
 
-Database views vs. R scripts (max. 100 words)
-Similar analyses (like in the last task) will be needed on a frequent basis. Either for quality
-control or as an end-product for customers. Should you implement this as SQL-views /
-SQL-functions or rather as a script (i.e. R or Python) that would need some automation?
-Answer this question objectively. You might personally prefer one solution over the other, but
-i.e. technical differences are usually the better argument.
+Both SQL queries and scripts can be exploited in order to achieve the same goal, being initially the display of an overview of the data, then various plots (like Plot \ref{fig:graph}) and maps. However, it has to be accounted for the possibility of automation that scripts entail, due to the possibility of easily storing objects and elements, opposed to the volatility of queries. Furthermore, resources like GitHub and Pastebin making it so that you don't need a specific database connection allow the scripts to be easily designable to function independently.
 
-Both SQL querys and scripts can be exploited in order to achieve the same goal, being initially the display of an overview of the data, then various plots and maps.
+# Tables, plots and maps
+
+```{sql, connection = con, echo = FALSE}
+
+
+
+WITH data_tot AS (
+  SELECT * FROM data
+  JOIN metadata meta ON data.meta_id=meta.id
+  WHERE variable_id=1
+),
+mean_temp AS (
+  SELECT data_tot.id,
+  AVG(value) AS t_avg
+  FROM data_tot
+  GROUP BY data_tot.id
+),
+day_temp AS (
+  SELECT data_tot.id,
+  AVG(value) AS t_day
+  FROM data_tot
+  WHERE date_part('hour', tstamp) >= 6 AND date_part('hour', tstamp) < 18
+  GROUP BY data_tot.id
+),
+night_temp AS (
+  SELECT data_tot.id,
+  AVG(value) AS t_night
+  FROM data_tot
+  WHERE date_part('hour', tstamp) < 6 OR date_part('hour', tstamp) >= 18
+  GROUP BY data_tot.id
+),
+t_var AS (
+  SELECT tv.id,
+  t_max - t_min AS t_t_var
+  FROM (
+    SELECT  data_tot.id,
+    		date_trunc('day', tstamp) AS day,
+    MIN(value) AS t_min,
+    MAX(value) AS t_max
+    FROM data_tot
+    GROUP BY data_tot.id, date_trunc('day', tstamp)
+  ) tv
+),
+amount AS (
+  SELECT id, count(*) AS "count" FROM data_tot GROUP BY id
+)
+SELECT  mean_temp.t_avg,
+		day_temp.t_day,
+		night_temp.t_night,
+		t_var.t_t_var,
+		amount."count",
+		meta.id
+FROM metadata meta
+JOIN mean_temp ON meta.id=mean_temp.id
+JOIN day_temp ON meta.id=day_temp.id
+JOIN night_temp ON meta.id=night_temp.id
+JOIN amount ON meta.id=amount.id
+JOIN t_var ON meta.id=t_var.id
+LIMIT 15
+
+```
+
+
+```{r graph, echo=FALSE, fig.cap="Differences in correlation between HOBOs"}
+
+g0
+
+```
 
 ```{r points, echo=FALSE, fig.cap="Differences in correlation between HOBOs"}
 

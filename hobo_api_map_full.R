@@ -98,8 +98,6 @@ pearper22 <- hobo_but %>% filter(id > 36) %>%
   summarise(p_avg = mean(pear),
             name) %>% distinct_all()
 
-
-
 # ---- pearson average mapped tot
 
 colorz <- merge(pearper, districts, by = "name")
@@ -136,7 +134,9 @@ g3 <- ggplot(colorz1$x) +
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
 
-#---- by tavg 21 ----
+#---- getting a correlation out of the average temperatures  ----
+
+#by WT 21 
 
 # get data frames
 
@@ -181,10 +181,7 @@ while (j < nrow(didder) + 1) {
 
 peareal21 <- merge(real, didnt, by = "did")
 
-#write.csv(peareal21, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/pearson_per_distr_21.csv", row.names = FALSE, quote = FALSE)
-
-
-#---- by tavg22 ----
+# average for WT22
 
 # get data frames
 
@@ -195,8 +192,6 @@ pointer22 <- point %>% filter(term_id == 13) %>% select(id, did) %>% mutate(did 
 
 hobos_2022 <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/hobos_2022.csv")
 
-#didnt <- read_csv("https://raw.githubusercontent.com/vm17399/weather_api/main/didnt.csv")
-
 hobos_did <- full_join(hobos_2022, pointer, by = "id")
 
 hobos_did_avg22 <- hobos_did %>% group_by(did, dttm) %>%
@@ -204,11 +199,6 @@ hobos_did_avg22 <- hobos_did %>% group_by(did, dttm) %>%
   distinct_all() %>% filter(is.na(tavg) == FALSE)
 
 didnt <- dist_coord %>% select(name, did)
-
-write.csv(didnt, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/didnt.csv", row.names = FALSE, quote = FALSE)
-
-#hobos_did_pear <- hobos_did_avg %>% group_by(did) %>% 
-# summarise(pears = cor.test(x = dev$th, y = dth$th, model ="pearson"))
 
 didder <- data.frame(did = as.integer(pointer$did)) %>% 
   distinct_all() %>% 
@@ -235,7 +225,9 @@ peareal <- merge(real, didnt, by = "did")
 
 #write.csv(peareal, file = "~/Freiburg/UniFreiburg/Data Management/weather_api/pearson_.csv", row.names = FALSE, quote = FALSE)
 
-# ---- peareal 22 ----
+# ---- mapping ----
+
+# WT 22 ----
 
 colorz2 <- merge(peareal, districts, by = "name") %>% slice(1:11)
 
@@ -254,7 +246,7 @@ g4 <- ggplot(colorz2$x) +
         legend.position = c(0.1,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
 
-# ---- peartot ----
+# WT 21 + WT 22
 
 peartot <- union(peareal, peareal21)
 
