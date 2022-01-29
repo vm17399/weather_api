@@ -57,7 +57,7 @@ g1 <- ggplot() +
                        name = "Pearson correlation",
                        n.breaks = 5) +
   ggtitle("HOBOs in Freiburg") +
-  theme(legend.key.size = unit(1, "line"),
+  theme(legend.key.size = unit(1,6, "line"),
         legend.position = "bottom",
         legend.background = element_rect(fill = "white", colour = "grey"))
 
@@ -263,5 +263,5 @@ g5 <- ggplot(colorz3$x) +
                        n.breaks = 5) + 
   ggtitle("Pearson correlation per district for 2021 and 2022") +
   theme(legend.key.size = unit(0.55, "line"),
-        legend.position = c(0.25,0.18),
+        legend.position = c(0.1,0.28),
         legend.background = element_rect(fill = "white", colour = "grey")) 
