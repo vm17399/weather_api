@@ -52,5 +52,5 @@ g0 <- ggplot(hobo_api, aes(dttm)) +
   theme_minimal(14) +
   theme(legend.position = c(0.3, 0.85),
         legend.background = element_rect(fill = "white", color = "grey"),
-        legend.key.size = unit(3, "line"))
+        legend.key.size = unit(2, "line"))
   

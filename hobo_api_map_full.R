@@ -57,7 +57,7 @@ g1 <- ggplot() +
                        name = "Pearson correlation",
                        n.breaks = 5) +
   ggtitle("HOBOs in Freiburg") +
-  theme(legend.key.size = unit(0.3, "line"),
+  theme(legend.key.size = unit(1, "line"),
         legend.position = "bottom",
         legend.background = element_rect(fill = "white", colour = "grey"))
 
@@ -181,7 +181,7 @@ while (j < nrow(didder) + 1) {
 
 peareal21 <- merge(real, didnt, by = "did")
 
-# average for WT22
+# average for WT 22
 
 # get data frames
 
@@ -263,5 +263,5 @@ g5 <- ggplot(colorz3$x) +
                        n.breaks = 5) + 
   ggtitle("Pearson correlation per district for 2021 and 2022") +
   theme(legend.key.size = unit(0.55, "line"),
-        legend.position = c(0.1,0.18),
+        legend.position = c(0.25,0.18),
         legend.background = element_rect(fill = "white", colour = "grey")) 
